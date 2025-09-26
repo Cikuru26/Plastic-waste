@@ -9,7 +9,7 @@ st.title("♻️ Smart Plastic Waste Detection (Sensor-based SVM)")
 st.write("This system uses 6 sensors to classify waste as **Plastic** or **Non-Plastic**.")
 
 # Show diagram of Smart Bin
-st.image("smart_bin_diagram.png", caption="Smart Bin with 6 Sensors", use_column_width=True)
+st.image("smart_bin_diagram.png", caption="Smart Bin with 6 Sensors", use_container_width=True)
 
 # Define sensor names
 sensor_names = [
