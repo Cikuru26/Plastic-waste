@@ -6,14 +6,28 @@ import numpy as np
 model = joblib.load("smart_plastic_sensor_svm.joblib")
 
 st.title("♻️ Smart Plastic Waste Detection (Sensor-based SVM)")
-st.write("Enter sensor readings to predict whether the waste is **Plastic** or **Non-Plastic**")
+st.write("This system uses 6 sensors to classify waste as **Plastic** or **Non-Plastic**.")
 
-# Input fields for 6 sensors
+# Show diagram of Smart Bin
+st.image("smart_bin_diagram.png", caption="Smart Bin with 6 Sensors", use_column_width=True)
+
+# Define sensor names
+sensor_names = [
+    "Infrared (IR) Sensor",
+    "Capacitive Sensor",
+    "Moisture Sensor",
+    "Ultrasonic Sensor",
+    "Color Sensor",
+    "Weight Sensor (Load Cell)"
+]
+
+# Input fields for sensors
+st.subheader("🔧 Enter Sensor Readings")
 sensors = []
 cols = st.columns(3)  # organize inputs in 2 rows
-for i in range(6):
+for i, name in enumerate(sensor_names):
     with cols[i % 3]:
-        val = st.number_input(f"Sensor {i+1}", value=0.0, format="%.3f")
+        val = st.number_input(f"{name}", value=0.0, format="%.3f")
         sensors.append(val)
 
 # Prediction button
@@ -22,8 +36,9 @@ if st.button("Predict"):
     pred = model.predict(sample)[0]
     prob = model.predict_proba(sample)[0][1]
 
-    st.subheader("Result")
+    st.subheader("📊 Prediction Result")
     if pred == 1:
         st.success(f"🟢 Plastic detected (Probability={prob:.2f})")
     else:
         st.info(f"🔵 Non-Plastic detected (Probability={1-prob:.2f})")
+
